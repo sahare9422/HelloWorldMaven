@@ -18,7 +18,9 @@ pipeline {
         stage('build && SonarQube analysis') {
             steps {
                 withSonarQubeEnv('sonarserver') {
-                    sh '/home/vagrant/sw/maven/bin/mvn sonar:sonar -Dsonar.projectKey=HelloWorldMaven -Dsonar.sources=./src/main/'
+                    withMaven(maven: 'apache-maven-3.6.3'){  
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=HelloWorldMaven -Dsonar.sources=./src/main/'
+                    }
                 }
             }
         }
